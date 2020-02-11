@@ -143,9 +143,9 @@ describe("The payroll system", function () {
     describe("hoursWorkedOnDate", function () {
       it("calculates that the employee worked 2 hours", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 1000])
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
-        expect(hoursWorkedOnDate.call(cRecord, "44-03-15")).to.equal(2)
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
+        expect(hoursWorkedOnDate.call(cRecord, "2015-03-15")).to.equal(2)
       })
     })
   })
@@ -159,17 +159,17 @@ describe("The payroll system", function () {
     describe("wagesEarnedOnDate", function () {
       it("calculates that the employee earned 54 dollars", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
-        expect(wagesEarnedOnDate.call(cRecord, "44-03-15")).to.equal(54)
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
+        expect(wagesEarnedOnDate.call(cRecord, "2015-03-15")).to.equal(54)
       })
 
       it("uses hoursWorkedOnDate", function() {
         let mySpy = chai.spy.on(window, "hoursWorkedOnDate")
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
-        wagesEarnedOnDate.call(cRecord, "44-03-15")
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
+        wagesEarnedOnDate.call(cRecord, "2015-03-15")
         expect(mySpy).to.have.been.called()
       })
     })
@@ -185,11 +185,11 @@ describe("The payroll system", function () {
       it("calculates that the employee earned 378 dollars", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
         // Earns 324
-        createTimeInEvent.call(cRecord, "44-03-14 0900")
-        createTimeOutEvent.call(cRecord, "44-03-14 2100")
+        createTimeInEvent.call(cRecord, "2015-03-14 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-14 2100")
         // Earns 54
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
         // 324 + 54
         expect(allWagesFor.call(cRecord)).to.equal(378)
       })
@@ -197,8 +197,8 @@ describe("The payroll system", function () {
       it("uses wagesEarnedOnDate", function() {
         let mySpy = chai.spy.on(window, "wagesEarnedOnDate")
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
         allWagesFor.call(cRecord)
         expect(mySpy).to.have.been.called()
       })
@@ -297,7 +297,7 @@ describe("The payroll system", function () {
       const csvTimesIn = [
         ["Thor", ["2018-01-01 0800", "2018-01-02 0800", "2018-01-03 0800"]],
         ["Loki", ["2018-01-01 0700", "2018-01-02 0700", "2018-01-03 0600"]],
-        ["Natalia", ["2018-01-03 1700", "2018-01-05 1800", "2018-01-03 1300"]],
+        ["Natalia", ["2018-01-01 1700", "2018-01-02 1800", "2018-01-03 1300"]],
         ["Darcey", ["2018-01-01 0700", "2018-01-02 0800", "2018-01-03 0800"]],
         ["Jarvis", ["2018-01-01 0500", "2018-01-02 0500", "2018-01-03 0500"]],
         ["Anthony", ["2018-01-01 1400", "2018-01-02 1400", "2018-01-03 1400"]]
@@ -306,7 +306,7 @@ describe("The payroll system", function () {
       const csvTimesOut = [
         ["Thor", ["2018-01-01 1600", "2018-01-02 1800", "2018-01-03 1800"]],
         ["Loki", ["2018-01-01 1700", "2018-01-02 1800", "2018-01-03 1800"]],
-        ["Natalia", ["2018-01-03 2300", "2018-01-05 2300", "2018-01-03 2300"]],
+        ["Natalia", ["2018-01-01 2300", "2018-01-02 2300", "2018-01-03 2300"]],
         ["Darcey", ["2018-01-01 1300", "2018-01-02 1300", "2018-01-03 1300"]],
         ["Jarvis", ["2018-01-01 1800", "2018-01-02 1800", "2018-01-03 1800"]],
         ["Anthony", ["2018-01-01 1600", "2018-01-02 1600", "2018-01-03 1600"]]
@@ -339,7 +339,7 @@ describe("The payroll system", function () {
                 createTimeOutEvent.call(rec, timeOutStamp)
               })
             }) 
-            expect(calculatePayroll(employeeRecords)).to.eql(11880)
+            expect(calculatePayroll(employeeRecords)).to.eql(12480)
           })
         })
       })
